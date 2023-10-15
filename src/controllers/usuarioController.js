@@ -1,5 +1,6 @@
 import usuarioModel from "../models/usuarios.model";
 import express, { request, response } from "express";
+import bcrypt from "bcrypt";
 
 // GET
 const getAllUsuarios = async (request, response) =>{
@@ -30,8 +31,15 @@ const getUnUsuario = async (request, response) =>{
 
 // POST
 const postUsuario = async (request, response) =>{
+    const { Nombre, Email, Contrasena, Rol}= request.body;
+    const hash = await bcrypt.hash(Contrasena,10);
     try{
-        const usuario = new usuarioModel(request.body);
+        const usuario = new usuarioModel({
+            Nombre,
+            Email,
+            Contrasena: hash,
+            Rol
+        });
         await usuario.save();
         response.status(200).json("usuario creado");
     } catch (error){
