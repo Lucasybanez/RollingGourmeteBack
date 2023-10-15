@@ -3,6 +3,7 @@ import 'dotenv/config'
 import cors from 'cors'
 import morgan from "morgan";
 import connectDb from "./database/db";
+import routerUsuarios from "./routes/usuariosRutas";
 
 // creamos una instancia de express
 const app=express();
@@ -41,4 +42,4 @@ app.use(express.urlencoded({extended: true})); //permite recibir parámetros en 
 app.use(morgan("dev")); // Brinda detalles en la terminal
 app.use(cors()); // permite recibir peteciones remotas
 
-//app.use("/api", routerUsuarios);
+app.use("/api", routerUsuarios);
