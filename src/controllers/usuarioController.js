@@ -73,7 +73,7 @@ const deleteUsuario = async (request, response) => {
         await usuarioModel.findOneAndDelete({_id: id});
         response.status(200).json({message: "usuario eliminado"});
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
 }
 
