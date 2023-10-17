@@ -1,6 +1,7 @@
 import usuarioModel from "../models/usuarios.model";
 import express, { request, response } from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // GET
 const getAllUsuarios = async (request, response) =>{
@@ -51,17 +52,34 @@ const postUsuario = async (request, response) =>{
 
 const login = async (request, response) => {
     const usuario= await usuarioModel.findOne({Email: request.body.Email});
-    if (usuario){
-        const match = await bcrypt.compare(request.body.Contrasena, usuario.Contrasena);
-        
-        if (!match){
-            response.status(401).json({error: "Contraseña incorrecta"});    
+    try{
+        if (usuario){
+            const match = await bcrypt.compare(request.body.Contrasena, usuario.Contrasena);
+            
+            if (!match){
+                response.status(401).json({error: "Contraseña incorrecta"});    
+            }
+            else {            
+                // creamos el token
+                const token = jwt.sign({ //PAYLOAD
+                    id: usuario._id,
+                    Nombre: usuario.Nombre,
+                    Rol: usuario.Rol
+                },
+                process.env.SECRET_KEY, // clave secreta
+                {expiresIn: "1d"} // expiración del token
+                );
+                //response.status(201).json({message: "Acceso concedido"});  
+                response.header("auth-token", token).json({
+                    error: null,
+                    data: {token}
+                });
+            }
+        } else {
+            response.status(404).json({error: "usuario incorrecto"});
         }
-        else {
-            response.status(201).json({message: "Acceso concedido"});    
-        }
-    } else {
-        response.status(404).json({error: "usuario incorrecto"});
+    } catch (error){
+        response.status(400).json({error: "no se pudo procesar el pedido"});
     }
 }
 

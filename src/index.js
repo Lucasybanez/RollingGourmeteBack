@@ -5,6 +5,8 @@ import morgan from "morgan";
 import connectDb from "./database/db";
 import routerUsuarios from "./routes/usuariosRutas";
 import routerReservas from "./routes/reservasRutas";
+import comprobacionJwt from "./middleware/comprobacionJwt"
+import routerAdmin from "./routes/admin";
 
 // creamos una instancia de express
 const app=express();
@@ -45,3 +47,4 @@ app.use(cors()); // permite recibir peteciones remotas
 
 app.use("/api", routerUsuarios);
 app.use("/api", routerReservas);
+app.use("/privado", comprobacionJwt, routerAdmin)
