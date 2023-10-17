@@ -100,5 +100,6 @@ module.exports = {
     getAllUsuarios,
     getUnUsuario,
     putUsuario,
-    deleteUsuario
+    deleteUsuario,
+    login
 }
