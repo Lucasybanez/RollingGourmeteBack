@@ -1,13 +1,13 @@
-import { express } from "express"
+import express, { request, response } from "express";
 const routerReservas = express.Router();
 import { postReserva, getAllReservas, getUnaReserva, putReserva, deleteReserva} from "../controllers/reservaController";
-import routerUsuarios from "./usuariosRutas";
+
 
 // GET
 routerReservas.get("/Reservas", getAllReservas);
 
 // GET
-routerReservas.get("Reservas/:id", getUnaReserva);
+routerReservas.get("/Reservas/:id", getUnaReserva);
 
 // POST
 routerReservas.post("/Reservas", postReserva);

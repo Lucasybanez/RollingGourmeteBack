@@ -43,7 +43,7 @@ const getUnaReserva = async (req, res) =>{
 
  const putReserva = async (req, res) => {
     try {
-        const id = request.params.id;
+        const id = req.params.id;
         const reserva = await reservaModel.findById(id);
         if(reserva){
             reserva.Fecha = req.body.Fecha;
@@ -53,10 +53,10 @@ const getUnaReserva = async (req, res) =>{
             await reserva.save();
             res.status(200).json("reserva modificada");  
         } else {
-            res.status(404).json("reserva no encontrado");
+            res.status(404).json("reserva no encontrada");
         }
     } catch (error){
-        res.status(404).json("reserva no encontrado");
+        res.status(400).json("reserva no encontrado xd");
     }
  }
 

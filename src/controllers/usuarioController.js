@@ -47,6 +47,24 @@ const postUsuario = async (request, response) =>{
     }
 }
 
+// LOGUEO
+
+const login = async (request, response) => {
+    const usuario= await usuarioModel.findOne({Email: request.body.Email});
+    if (usuario){
+        const match = await bcrypt.compare(request.body.Contrasena, usuario.Contrasena);
+        
+        if (!match){
+            response.status(401).json({error: "Contraseña incorrecta"});    
+        }
+        else {
+            response.status(201).json({message: "Acceso concedido"});    
+        }
+    } else {
+        response.status(404).json({error: "usuario incorrecto"});
+    }
+}
+
 // PUT
 
 const putUsuario = async (request, response) => {

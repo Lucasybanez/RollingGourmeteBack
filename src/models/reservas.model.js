@@ -11,8 +11,7 @@ const reservaSchema = new Schema({
     CantidadDePersonas:{
         type: Number,
         required: true,
-        max: 2,
-        min: 1
+        max: 5
     },
     Hora: {
         type: String,
@@ -20,7 +19,7 @@ const reservaSchema = new Schema({
         max: 5,
         min: 3
     },
-    Respnsable: {
+    Responsable: {
         type: String,
         required: true,
         max: 100,
