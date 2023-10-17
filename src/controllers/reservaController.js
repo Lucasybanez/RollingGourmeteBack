@@ -35,15 +35,16 @@ const getUnaReserva = async (req, res) =>{
         await reserva.save();
         res.status(200).json("reserva creada");
     } catch (error) {
-        console.log(error);
+        res.status(400).json({error: "No se pudo crear la reserva"});
     }
  }
 
  // PUT
 
  const putReserva = async (req, res) => {
+
+    const id = req.params.id;
     try {
-        const id = req.params.id;
         const reserva = await reservaModel.findById(id);
         if(reserva){
             reserva.Fecha = req.body.Fecha;
@@ -56,7 +57,7 @@ const getUnaReserva = async (req, res) =>{
             res.status(404).json("reserva no encontrada");
         }
     } catch (error){
-        res.status(400).json("reserva no encontrado xd");
+        res.status(400).json("No se puedieron procesar los datos");
     }
  }
 
@@ -68,7 +69,7 @@ const getUnaReserva = async (req, res) =>{
         await reservaModel.findOneAndDelete({_id: id});
         response.status(200).json({message: "reserva eliminada"});
     } catch (error){
-        console.log(error);
+        response.status(400).json({error: "No se pudo eliminar la reserva"});
     }
  }
 

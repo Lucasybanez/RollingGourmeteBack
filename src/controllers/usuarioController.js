@@ -43,7 +43,7 @@ const postUsuario = async (request, response) =>{
         await usuario.save();
         response.status(200).json("usuario creado");
     } catch (error){
-        console.log(error);
+        response.status(404).json({error: "usuario no encontrada"});
     }
 }
 
@@ -91,7 +91,7 @@ const deleteUsuario = async (request, response) => {
         await usuarioModel.findOneAndDelete({_id: id});
         response.status(200).json({message: "usuario eliminado"});
         } catch (error) {
-            console.log(error);
+            response.status(404).json({error: "persona no encontrada"});
         }
 }
 

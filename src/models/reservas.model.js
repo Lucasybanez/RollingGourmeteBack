@@ -22,7 +22,7 @@ const reservaSchema = new Schema({
     Responsable: {
         type: String,
         required: true,
-        max: 100,
+        max: 50,
         min: 5
     }
 });
