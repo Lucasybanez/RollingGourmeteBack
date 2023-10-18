@@ -13,7 +13,7 @@ const app=express();
 
 //configuramos el puerto en el que se ejecutará el backend
 
-app.set('port', process.env.PORT || 5050);
+app.set('port', 8001 || 5050);
 
 //inicializamos nuestro backend
 
