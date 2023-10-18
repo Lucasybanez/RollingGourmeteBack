@@ -20,10 +20,28 @@ const getUnaReserva = async (req, res) =>{
         if (reserva){
             res.status(200).json(reserva);
         } else {
-            res.status(404).json({error: "persona no encontrada"});
+            res.status(404).json({error: "reserva no encontrada"});
         }
     } catch (error){
-        res.status(404).json({error: "persona no encontrada"});
+        res.status(404).json({error: "reserva no encontrada"});
+    }
+}
+// GET DISPONIBILIDAD
+
+const getDisponibilidad = async (req, res) => {
+    try {
+        const Fecha = req.body.Fecha;
+        const Hora = req.body.Hora;
+        if (!Fecha || !Hora) {
+            return res.status(400).json({ message: "Los parámetros Fecha y Hora son obligatorios." });
+        } else {
+            const allReservas = await reservaModel.find({ Fecha, Hora });
+            res.status(200).json(allReservas);
+        }
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+        console.log(error)
     }
 }
 
@@ -78,6 +96,7 @@ const getUnaReserva = async (req, res) =>{
     getAllReservas,
     getUnaReserva,
     putReserva,
-    deleteReserva
+    deleteReserva,
+    getDisponibilidad
     
  }

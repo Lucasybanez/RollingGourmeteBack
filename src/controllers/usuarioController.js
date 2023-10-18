@@ -22,11 +22,11 @@ const getUnUsuario = async (request, response) =>{
         if(usuario){
             response.status(200).json(usuario);
         } else {
-            response.status(404).json({error: "persona no encontrada"});    
+            response.status(404).json({error: "usuario no encontrado"});    
         }
         
     } catch (error){
-        response.status(404).json({error: "persona no encontrada"});
+        response.status(404).json({error: "usuario no encontrado"});
     }
 }
 
@@ -44,7 +44,7 @@ const postUsuario = async (request, response) =>{
         await usuario.save();
         response.status(200).json("usuario creado");
     } catch (error){
-        response.status(404).json({error: "usuario no encontrada"});
+        response.status(400).json({error: "No se pudo crear el usuario"});
     }
 }
 
@@ -99,7 +99,7 @@ const putUsuario = async (request, response) => {
             response.status(404).json("usuario no encontrada");
         }
     } catch (error){
-        response.status(404).json({error: "persona no encontrada"});
+        response.status(404).json({error: "usuario no encontrado"});
     }
 }
 
@@ -109,7 +109,7 @@ const deleteUsuario = async (request, response) => {
         await usuarioModel.findOneAndDelete({_id: id});
         response.status(200).json({message: "usuario eliminado"});
         } catch (error) {
-            response.status(404).json({error: "persona no encontrada"});
+            response.status(404).json({error: "usuario no encontrado"});
         }
 }
 
