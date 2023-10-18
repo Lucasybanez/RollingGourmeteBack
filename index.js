@@ -2,11 +2,11 @@ import express from "express";
 import 'dotenv/config'
 import cors from 'cors'
 import morgan from "morgan";
-import connectDb from "./database/db";
-import routerUsuarios from "./routes/usuariosRutas";
-import routerReservas from "./routes/reservasRutas";
-import comprobacionJwt from "./middleware/comprobacionJwt"
-import routerAdmin from "./routes/admin";
+import connectDb from "./src/database/db";
+import routerUsuarios from "./src/routes/usuariosRutas";
+import routerReservas from "./src/routes/reservasRutas";
+import comprobacionJwt from "./src/middleware/comprobacionJwt"
+import routerAdmin from "./src/routes/admin";
 
 // creamos una instancia de express
 const app=express();
@@ -47,4 +47,6 @@ app.use(cors()); // permite recibir peteciones remotas
 
 app.use("/api", routerUsuarios);
 app.use("/api", routerReservas);
-app.use("/privado", comprobacionJwt, routerAdmin)
+app.use("/privado", comprobacionJwt, routerAdmin);
+
+module.exports = app;

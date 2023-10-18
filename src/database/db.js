@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const uri = process.env.URI;
+//const uri = process.env.URI;
 
 const connectDb = async () => {
     try{
-        await mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
+        await mongoose.connect("mongodb://localhost:27017/rollinggourmete", {useNewUrlParser: true, useUnifiedTopology: true});
         console.log("conectado a la db");
     } catch (error) {
         console.log(error);
