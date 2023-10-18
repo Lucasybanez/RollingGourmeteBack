@@ -79,7 +79,7 @@ const login = async (request, response) => {
             response.status(404).json({error: "usuario incorrecto"});
         }
     } catch (error){
-        response.status(400).json({error: "no se pudo procesar el pedido"});
+        response.status(400).json({error: "no se pudo procesar el pedido"}, error);
     }
 }
 
