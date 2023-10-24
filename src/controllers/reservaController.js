@@ -1,7 +1,5 @@
 import reservaModel from "../models/reservas.model";
 
-// GET 
-
 const getAllReservas= async (req, res) =>{
     try{
         const allReservas = await reservaModel.find();
@@ -10,8 +8,6 @@ const getAllReservas= async (req, res) =>{
         res.status(400).json({message: error.message});
     }
 }
-
-// GET POR ID 
 
 const getUnaReserva = async (req, res) =>{
     try{
@@ -26,7 +22,6 @@ const getUnaReserva = async (req, res) =>{
         res.status(404).json({error: "reserva no encontrada"});
     }
 }
-// GET DISPONIBILIDAD
 
 const getDisponibilidad = async (req, res) => {
     try {
@@ -45,8 +40,6 @@ const getDisponibilidad = async (req, res) => {
     }
 }
 
-// POST
-
  const postReserva = async (req, res) =>{
     try{
         const reserva = new reservaModel(req.body);
@@ -56,8 +49,6 @@ const getDisponibilidad = async (req, res) => {
         res.status(400).json({error: "No se pudo crear la reserva"});
     }
  }
-
- // PUT
 
  const putReserva = async (req, res) => {
 
@@ -78,8 +69,6 @@ const getDisponibilidad = async (req, res) => {
         res.status(400).json("No se puedieron procesar los datos");
     }
  }
-
- // DELETE
 
  const deleteReserva = async (req, response) => {
     try{

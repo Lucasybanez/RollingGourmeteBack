@@ -3,7 +3,6 @@ import express, { request, response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-// GET
 const getAllUsuarios = async (request, response) =>{
     try{
         const allUsuarios = await usuarioModel.find();
@@ -13,7 +12,6 @@ const getAllUsuarios = async (request, response) =>{
     }
 }
 
-// GET POR ID
 
 const getUnUsuario = async (request, response) =>{
     try{
@@ -30,7 +28,6 @@ const getUnUsuario = async (request, response) =>{
     }
 }
 
-// POST
 const postUsuario = async (request, response) =>{
     const { Nombre, Email, Contrasena, Rol}= request.body;
     const hash = await bcrypt.hash(Contrasena,10);
@@ -48,8 +45,6 @@ const postUsuario = async (request, response) =>{
     }
 }
 
-// LOGUEO
-
 const login = async (request, response) => {
     const usuario= await usuarioModel.findOne({Email: request.body.Email});
     try{
@@ -60,16 +55,14 @@ const login = async (request, response) => {
                 response.status(401).json({error: "Contraseña incorrecta"});    
             }
             else {            
-                // creamos el token
-                const token = jwt.sign({ //PAYLOAD
+                const token = jwt.sign({ 
                     id: usuario._id,
                     Nombre: usuario.Nombre,
                     Rol: usuario.Rol
                 },
-                process.env.SECRET_KEY, // clave secreta
-                {expiresIn: "1d"} // expiración del token
+                process.env.SECRET_KEY,
+                {expiresIn: "1d"} 
                 );
-                //response.status(201).json({message: "Acceso concedido"});  
                 response.header("auth-token", token).json({
                     error: null,
                     data: {token}
@@ -82,8 +75,6 @@ const login = async (request, response) => {
         response.status(400).json({error: "no se pudo procesar el pedido"}, error);
     }
 }
-
-// PUT
 
 const putUsuario = async (request, response) => {
     try {
